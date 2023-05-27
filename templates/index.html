@@ -9,10 +9,9 @@
 <body>
     <form action="sensor" method="post">
         {% csrf_token %}
-        DeviceID   <input type="text" name ="device_id" placeholder="Enter the Device ID" ><br><br>
-        Location   <input type="text" name ="location" placeholder="Enter the Location" ><br><br>
         Data       <input type="text" name ="data" placeholder="Enter the Data" ><br><br>
                    <input type="submit" value="Submit">
     </form>
+    <a href="{% url 'warn' %}"><button>Warn</button></a>
 </body>
 </html>
