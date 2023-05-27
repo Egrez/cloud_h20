@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Sensors(models.Model):
     device_id = models.CharField(primary_key=True, max_length=20, help_text="Enter Device's Name")
-    timestamp = models.DateTimeField(primary_key=True, auto_now=True)
+    timestamp = models.DateTimeField(auto_now=True)
     location = models.CharField(max_length=50, help_text="Enter Device's Location")
     data = models.FloatField(help_text="Sensor Reading")
 

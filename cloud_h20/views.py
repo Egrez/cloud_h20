@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from .models import Sensors, ServerData
+from sensors.models import Sensors, ServerData
 
 # Create your views here.
 def home(request):
     return render(request, "index.html")
 
-def readings(request): # POST Request for Sensor Readings
+def sensor(request): # POST Request for Sensor Readings
     device_id = request.POST['device_id']
     location = request.POST['location']
     data = request.POST['data']
@@ -15,4 +15,4 @@ def readings(request): # POST Request for Sensor Readings
     new_obj.save()
 
     # Render the HTML template with the data in the context variable
-    # return render(request, 'index.html', context=context)
+    return render(request, "index.html")
