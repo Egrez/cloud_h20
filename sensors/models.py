@@ -1,17 +1,26 @@
 from django.db import models
 
+from django.contrib.auth.models import User
+
 # Create your models here.
-class Sensors(models.Model):
-    device_id = models.CharField(primary_key=True, max_length=20, help_text="Enter Device's Name")
-    timestamp = models.DateTimeField(auto_now=True)
+class Sensor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=50, help_text="Enter Device's Location")
+
+    def __str__(self):
+        return f'{self.user}'
+
+# Create your models here.
+class SensorReading(models.Model):
+    device_id = models.ForeignKey(Sensor, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)
     data = models.FloatField(help_text="Sensor Reading")
 
     class Meta:
         ordering = ['device_id', '-timestamp']
 
     def __str__(self):
-        return f'{self.device_id} in {self.location} ({self.timestamp})'
+        return f'{self.device_id} - ({self.timestamp})'
 
 class ServerData(models.Model):
     response_id = models.CharField(primary_key=True, max_length=20, help_text="Enter Response's ID")
