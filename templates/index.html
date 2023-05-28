@@ -14,6 +14,25 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+
+        <h3>Locations</h3>
+        <table class="table">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Actions</th>
+            </tr>
+            {% for location in locations %}
+                <tr>
+                    <td>{{ location }}</td>
+                    <td>
+                        <button type="button" class="btn btn-danger">Mark as Unsafe</button>
+                        <button type="button" class="btn btn-secondary">Shut off valve</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+
         <h3>Sensors</h3>
         <table class="table">
             <tr>
@@ -27,7 +46,7 @@
                 </tr>
             {% endfor %}
         </table>
-
+        <br>
         <h3>Sensor Readings</h3>
         <table class="table">
             <tr>
@@ -43,7 +62,7 @@
                 </tr>
             {% endfor %}
         </table>
-
+        <br>
         <h3>Server Data</h3>
         <table class="table">
             <tr>
