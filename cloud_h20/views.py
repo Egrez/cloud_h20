@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from sensors.models import Sensors
 
 # Create your views here.
 def home(request):
-    return render(request, "index.html")
+    sensors = Sensors.objects.all()
+    return render(request, "index.html", {'sensors': sensors})
