@@ -7,6 +7,6 @@ from . import views
 
 urlpatterns = [
     path('sensor', views.sensor, name='sensor'),
-    path('warn', views.send_warning_signal, name='warn'),
+    path('warn/<int:id>', views.send_warning_signal, name='warn'),
     path('signin', views.signin, name='signin'),
 ]
