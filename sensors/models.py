@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 class Sensor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=50, help_text="Enter Device's Location")
+    ip_addr = models.CharField(max_length=15, help_text="Enter Device's Location", blank=True, null=True)
+    port = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.user}'
