@@ -1,5 +1,4 @@
 from django.db import models
-
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -14,7 +13,9 @@ class Sensor(models.Model):
 class SensorReading(models.Model):
     device_id = models.ForeignKey(Sensor, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now=True)
-    data = models.FloatField(help_text="Sensor Reading")
+    tds = models.FloatField(help_text="Sensor Reading for TDS")
+    cond = models.FloatField(help_text="Sensor Reading for ORP")
+    pH = models.FloatField(help_text="Sensor Reading for pH Level")
 
     class Meta:
         ordering = ['device_id', '-timestamp']
