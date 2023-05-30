@@ -4,11 +4,13 @@ from sensors.models import Sensor, SensorReading, ServerData
 import requests
 
 from django.contrib.auth import authenticate, login
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def home(request):
 	return render(request, "index.html")
 
+@csrf_exempt
 def signin(request):
 	username = request.POST["username"]
 	password = request.POST["password"]
@@ -19,6 +21,7 @@ def signin(request):
 
 	return render(request, "index.html")
 
+@csrf_exempt
 def sensor(request): # POST Request for Sensor Readings
 	if request.user.is_authenticated:
 		user = request.user
