@@ -14,9 +14,9 @@ def signin(request):
 	user = authenticate(request, username=username, password=password)
 
 	sensor = user.sensor
-	ip_addr, _ = request.environ["wsgi.input"].stream.raw._sock.getpeername()
+	ip_addr = request.META.get('REMOTE_ADDR')
+	
 	sensor.ip_addr = ip_addr
-
 	sensor.port = port
 	sensor.save()
 
