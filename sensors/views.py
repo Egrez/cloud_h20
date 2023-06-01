@@ -61,5 +61,7 @@ def send_warning_signal(request, id): # POST Request to turn on LEDs
 	response = requests.post(f'http://{ip_addr}:{port}', json=post_data)
 	content = response.content
 
+	print(content)
+
 	# Render the HTML template with the data in the context variable
 	return render(request, "index.html")
