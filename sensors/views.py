@@ -10,14 +10,13 @@ from django.views.decorators.csrf import csrf_exempt
 def signin(request):
 	username = request.POST["username"]
 	password = request.POST["password"]
-	port = request.POST["port"]
+	tunnel = request.POST["tunnel"]
+
 	user = authenticate(request, username=username, password=password)
 
 	sensor = user.sensor
-	ip_addr = request.META.get('HTTP_X_FORWARDED_FOR')
 	
-	sensor.ip_addr = ip_addr
-	sensor.port = port
+	sensor.tunnel = tunnel
 	sensor.save()
 
 	if user is not None:
@@ -52,13 +51,12 @@ def send_warning_signal(request, id): # POST Request to turn on LEDs
 
 	sensor = user.sensor
 
-	ip_addr = sensor.ip_addr
-	port = sensor.port
+	tunnel = sensor.tunnel
 
 	post_data = {'valve': False, 'LED' : True}
 
 	# replace this with IP address and port number of client sensors
-	response = requests.post(f'http://{ip_addr}:{port}', json=post_data)
+	response = requests.post(tunnel, json=post_data)
 	content = response.content
 
 	print(content)
