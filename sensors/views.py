@@ -58,7 +58,7 @@ def send_warning_signal(request, id): # POST Request to turn on LEDs
 	post_data = {'valve': False, 'LED' : True}
 
 	# replace this with IP address and port number of client sensors
-	response = requests.post(f'http://{ip_addr}:{port}', data=post_data)
+	response = requests.post(f'http://{ip_addr}:{port}', json=post_data)
 	content = response.content
 
 	# Render the HTML template with the data in the context variable
