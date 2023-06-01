@@ -27,9 +27,9 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-*g=5ph*saj&p^#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['deployed-cfscheduler-production.up.railway.app', 'https://deployed-cfscheduler-production.up.railway.app', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['cloud-h20.up.railway.app', 'https://cloud-h20.up.railway.app', '127.0.0.1', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = ['https://deployed-cfscheduler-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://cloud-h20.up.railway.app']
 
 # Application definition
 
