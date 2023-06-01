@@ -14,7 +14,7 @@ def signin(request):
 	user = authenticate(request, username=username, password=password)
 
 	sensor = user.sensor
-	ip_addr = request.META.get('REMOTE_ADDR')
+	ip_addr = request.META.get('HTTP_X_FORWARDED_FOR')
 	
 	sensor.ip_addr = ip_addr
 	sensor.port = port
@@ -31,6 +31,8 @@ def sensor(request): # POST Request for Sensor Readings
 		user = request.user
 		device_id = user.sensor
 		
+		print(request.POST)
+
 		tds = request.POST['tds']
 		pH = request.POST['pH']
 		cond = request.POST['cond']
