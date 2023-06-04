@@ -51,7 +51,6 @@
         <table class="table">
             <tr>
                 <th scope="col">Device ID</th>
-                <th scope="col">Data</th>
                 <th scope="col">Reading for TDS</th>
                 <th scope="col">Reading for ORP</th>
                 <th scope="col">Reading for pH Level</th>
@@ -60,7 +59,6 @@
             {% for sensor_reading in sensor_readings %}
                 <tr>
                     <td>{{ sensor_reading.device_id }}</td>
-                    <td>{{ sensor_reading.data }}</td>
                     <td>{{ sensor_reading.tds }}</td>
                     <td>{{ sensor_reading.cond }}</td>
                     <td>{{ sensor_reading.pH }}</td>
