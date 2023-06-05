@@ -60,10 +60,10 @@ def receive_loop():
 def send_loop():
     while not (stop):
         tds = 12
-        cond = 34
+        temp = 34
         pH = 56
 
-        post_data = {'tds' : tds, 'cond' : cond, 'pH' : pH}
+        post_data = {'tds' : tds, 'temp' : temp, 'pH' : pH}
 
         # sensor POST request
         session.post('http://localhost:8000/sensor', data=post_data)

@@ -52,7 +52,7 @@
             <tr>
                 <th scope="col">Device ID</th>
                 <th scope="col">Reading for TDS</th>
-                <th scope="col">Reading for ORP</th>
+                <th scope="col">Reading for Temperature</th>
                 <th scope="col">Reading for pH Level</th>
                 <th scope="col">Timestamp</th>
             </tr>
@@ -60,7 +60,7 @@
                 <tr>
                     <td>{{ sensor_reading.device_id }}</td>
                     <td>{{ sensor_reading.tds }}</td>
-                    <td>{{ sensor_reading.cond }}</td>
+                    <td>{{ sensor_reading.temp }}</td>
                     <td>{{ sensor_reading.pH }}</td>
                     <td>{{ sensor_reading.timestamp }}</td>
                 </tr>

@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 class Sensor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=50, help_text="Enter Device's Location")
-    tunnel = models.CharField(max_length=50, null=True)
 
     def __str__(self):
         return f'{self.user}'
@@ -15,7 +14,7 @@ class SensorReading(models.Model):
     device_id = models.ForeignKey(Sensor, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now=True)
     tds = models.FloatField(help_text="Sensor Reading for TDS")
-    cond = models.FloatField(help_text="Sensor Reading for ORP")
+    temp = models.FloatField(help_text="Sensor Reading for temperature")
     pH = models.FloatField(help_text="Sensor Reading for pH Level")
 
     class Meta:
