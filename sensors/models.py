@@ -26,7 +26,7 @@ class SensorReading(models.Model):
 class ServerData(models.Model):
     response_id = models.CharField(primary_key=True, max_length=20, help_text="Enter Response's ID")
     expert_id = models.CharField(max_length=20, help_text="Enter Expert's ID")
-    destination_device = models.CharField(max_length=20, help_text="Enter Destination Device's Name")
+    destination_device = models.ForeignKey(Sensor, on_delete=models.CASCADE)
     is_unsafe = models.BooleanField(default=False, help_text="True if the water is contaminated")
     valve_shutoff = models.BooleanField(default=False, help_text="True if the water is contaminated")
 
