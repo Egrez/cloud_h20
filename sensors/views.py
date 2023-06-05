@@ -34,3 +34,15 @@ def send_warning_signal(request, id):
 		}
 	)
 	return HttpResponse('<p>Warning signal sent</p>')
+
+# user controlled input to turn on LEDs
+def send_stop_warning_signal(request, id): 
+	channel_layer = get_channel_layer()
+	async_to_sync(channel_layer.group_send)(
+		'QC',
+		{
+			'type': 'send_stop_warning',
+			'message': 'Test message'
+		}
+	)
+	return HttpResponse('<p>Stop warning signal sent</p>')

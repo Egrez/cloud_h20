@@ -31,6 +31,13 @@ class SensorConsumer(WebsocketConsumer):
 
 	# Receive message from the group
 	def send_warning(self, text_data):
+		message = json.dumps({"LED" : "true"})
+
+		# Send message to WebSocket
+		self.send(text_data=message)
+
+	# Receive message from the group
+	def send_stop_warning(self, text_data):
 		message = json.dumps({"LED" : "false"})
 
 		# Send message to WebSocket
