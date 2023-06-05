@@ -27,13 +27,15 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-*g=5ph*saj&p^#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['cloud-h20.up.railway.app', 'https://cloud-h20.up.railway.app', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['web-production-859c.up.railway.app', 'web-production-859c.up.railway.app', '127.0.0.1', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = ['https://cloud-h20.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['web-production-859c.up.railway.app']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -144,3 +146,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+
+ASGI_APPLICATION = "cloud_h20.asgi.application"
+
+if DEBUG:
+    redis_host = ('127.0.0.1', '6379')
+else:
+    redis_host = (os.environ.get('REDIS_URL'))
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [redis_host],
+        },
+    },
+}
