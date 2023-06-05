@@ -4,7 +4,7 @@ from sensors.models import Sensor, SensorReading, ServerData
 # Create your views here.
 def home(request):
     sensors = Sensor.objects.all()
-    sensor_readings = SensorReading.objects.all()
+    sensor_readings = SensorReading.objects.all()[0:15]
     server_data = ServerData.objects.all()
     locations = Sensor.objects.values_list('location', flat=True).distinct()
 
