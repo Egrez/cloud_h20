@@ -27,9 +27,9 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-*g=5ph*saj&p^#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['web-production-859c.up.railway.app', 'web-production-859c.up.railway.app', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['cloud-h20.up.railway.app', '127.0.0.1', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = ['web-production-859c.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['cloud-h20.up.railway.app']
 
 # Application definition
 
