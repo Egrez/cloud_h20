@@ -1,7 +1,8 @@
-from django.shortcuts import render
-from sensors.models import Sensor, SensorReading, ServerData
+from django.shortcuts import render, redirect
 
-import requests
+from django.contrib.auth.decorators import login_required
+
+from django.urls import reverse
 
 from django.contrib.auth import authenticate, login
 from django.views.decorators.csrf import csrf_exempt
@@ -24,6 +25,7 @@ def signin(request):
 	return render(request, "index.html")
 
 # user controlled input to turn on LEDs
+@login_required
 def send_warning_signal(request, id): 
 	channel_layer = get_channel_layer()
 	async_to_sync(channel_layer.group_send)(
@@ -36,6 +38,7 @@ def send_warning_signal(request, id):
 	return HttpResponse('<p>Warning signal sent</p>')
 
 # user controlled input to turn on LEDs
+@login_required
 def send_stop_warning_signal(request, id): 
 	channel_layer = get_channel_layer()
 	async_to_sync(channel_layer.group_send)(
