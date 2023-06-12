@@ -90,10 +90,10 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
         <script>
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function(){
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
-                    obj = JSON.parse(xmlhttp.response);
+            var xhrReading = new XMLHttpRequest();
+            xhrReading.onreadystatechange = function(){
+                if (xhrReading.readyState == 4 && xhrReading.status == 200){
+                    obj = JSON.parse(xhrReading.response);
                     readingRows = document.querySelectorAll("#reading-table tr");
 
                     for (let index = 1; index < readingRows.length; index++){
@@ -127,27 +127,28 @@
             async function refreshTable(){
                 while (true){
                     await new Promise(resolve => setTimeout(resolve, 10000));
-                    xmlhttp.open("GET", document.URL, true);
-                    xmlhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest")
-                    xmlhttp.send();
+                    xhrReading.open("GET", document.URL, true);
+                    xhrReading.setRequestHeader("X-Requested-With", "XMLHttpRequest")
+                    xhrReading.send();
                 }
             }
 
             refreshTable()
 
+            xhrSending = new XMLHttpRequest();
             function warn(){
-                xmlhttp.open("GET", document.URL + "warn", true);
-                xmlhttp.send();
+                xhrSending.open("GET", document.URL + "warn", true);
+                xhrSending.send();
             }
 
             function unwarn(){
-                xmlhttp.open("GET", document.URL + "stop/warn", true);
-                xmlhttp.send();
+                xhrSending.open("GET", document.URL + "stop/warn", true);
+                xhrSending.send();
             }
 
             function auto(){
-                xmlhttp.open("GET", document.URL + "auto", true);
-                xmlhttp.send();
+                xhrSending.open("GET", document.URL + "auto", true);
+                xhrSending.send();
             }
         </script>
     </body>
