@@ -14,7 +14,7 @@ def home(request):
         for index in range(len(sensor_readings)):
             reading = sensor_readings[index]
 
-            timestamp = reading.timestamp.replace(tzinfo=datetime.timezone.utc).astimezone(tz=None)
+            timestamp = reading.timestamp + datetime.timedelta(hours=8)
 
             obj[index] = [reading.device_id.user.username, str(reading.pH), str(reading.tds), str(reading.temp), reading.is_safe_pH, reading.is_safe_tds, reading.is_safe_temp, datetime.datetime.strftime(timestamp, "%B %d, %Y, %#I:%M %p")]
 
