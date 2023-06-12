@@ -55,5 +55,17 @@ class SensorConsumer(WebsocketConsumer):
 		pH = text_data_json["pH"]
 		temp = text_data_json["temp"]
 
-		new_obj = SensorReading(device_id=device_id, tds=tds, pH=pH, temp=temp)
+		is_safe_ph = True
+		is_safe_temp = True
+		is_safe_tds = True
+
+		if pH < 6.5 or pH > 8.5:
+			is_safe_pH= False
+		if temp < 30 or temp > 35:
+			is_safe_temp = False
+		if tds > 600.6853818:
+			is_safe_tds = False
+
+
+		new_obj = SensorReading(device_id=device_id, tds=tds, pH=pH, temp=temp, is_safe_tds=is_safe_tds, is_safe_pH=is_safe_pH, is_safe_temp=is_safe_temp)
 		new_obj.save()

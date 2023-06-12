@@ -48,7 +48,7 @@
         </table>
         <br>
         <h3>Sensor Readings</h3>
-        <table class="table">
+        <table class="table" id="reading-table">
             <tr>
                 <th scope="col">Device ID</th>
                 <th scope="col">Reading for TDS</th>
@@ -59,10 +59,10 @@
             {% for sensor_reading in sensor_readings %}
                 <tr>
                     <td>{{ sensor_reading.device_id }}</td>
-                    <td>{{ sensor_reading.tds }}</td>
-                    <td>{{ sensor_reading.temp }}</td>
-                    <td>{{ sensor_reading.pH }}</td>
-                    <td>{{ sensor_reading.timestamp }}</td>
+                    <td class="{% if sensor_reading.is_safe_tds %}{% else %}bg-danger{% endif %}">{{ sensor_reading.tds }}</td>
+                    <td class="{% if sensor_reading.is_safe_temp %}{% else %}bg-danger{% endif %}">{{ sensor_reading.temp }}</td>
+                    <td class="{% if sensor_reading.is_safe_pH %}{% else %}bg-danger{% endif %}">{{ sensor_reading.pH }}</td>
+                    <td>{{ sensor_reading.timestamp|date:'F d, Y, g:i A' }}</td>
                 </tr>
             {% endfor %}
         </table>
@@ -88,6 +88,51 @@
         </table>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-        <script src="" async defer></script>
+        <script>
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function(){
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                    obj = JSON.parse(xmlhttp.response);
+                    readingRows = document.querySelectorAll("#reading-table tr");
+
+                    for (let index = 1; index < readingRows.length; index++){
+                        let readingRow = readingRows[index];
+                        let cells = readingRow.children;
+
+                        cells[0].innerText = obj[index-1][0];
+                        cells[1].innerText = obj[index-1][2];
+                        cells[2].innerText = obj[index-1][3];
+                        cells[3].innerText = obj[index-1][1];
+                        cells[4].innerText = obj[index-1][7];
+
+                        cells[1].classList = "";
+                        cells[2].classList = "";
+                        cells[3].classList = "";
+                        if (!obj[index-1][4]){
+                            cells[3].classList = "bg-danger";
+                        }
+
+                        if (!obj[index-1][5]){
+                            cells[1].classList = "bg-danger";
+                        }
+
+                        if (!obj[index-1][6]){
+                            cells[2].classList = "bg-danger";
+                        }
+                    }
+                }
+            }
+
+            async function refreshTable(){
+                while (true){
+                    await new Promise(resolve => setTimeout(resolve, 10000));
+                    xmlhttp.open("GET", "http://localhost:8000", true);
+                    xmlhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest")
+                    xmlhttp.send();
+                }
+            }
+
+            refreshTable()
+        </script>
     </body>
 </html>

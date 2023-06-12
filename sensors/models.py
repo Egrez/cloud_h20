@@ -17,6 +17,10 @@ class SensorReading(models.Model):
     temp = models.FloatField(help_text="Sensor Reading for temperature")
     pH = models.FloatField(help_text="Sensor Reading for pH Level")
 
+    is_safe_tds = models.BooleanField(default=False, help_text="True if TDS is within standards")
+    is_safe_temp = models.BooleanField(default=False, help_text="True if temperature is within standards")
+    is_safe_pH = models.BooleanField(default=False, help_text="True if pH is within standards")
+
     class Meta:
         ordering = ['device_id', '-timestamp']
 
