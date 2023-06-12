@@ -127,7 +127,7 @@
             async function refreshTable(){
                 while (true){
                     await new Promise(resolve => setTimeout(resolve, 10000));
-                    xmlhttp.open("GET", "http://{{ request.get_host }}", true);
+                    xmlhttp.open("GET", "{{ request.build_absolute_uri }}", true);
                     xmlhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest")
                     xmlhttp.send();
                 }
@@ -136,17 +136,17 @@
             refreshTable()
 
             function warn(){
-                xmlhttp.open("GET", "http://{{ request.get_host }}/warn", true);
+                xmlhttp.open("GET", "{{ request.build_absolute_uri }}warn", true);
                 xmlhttp.send();
             }
 
             function unwarn(){
-                xmlhttp.open("GET", "http://{{ request.get_host }}/stop/warn", true);
+                xmlhttp.open("GET", "{{ request.build_absolute_uri }}stop/warn", true);
                 xmlhttp.send();
             }
 
             function auto(){
-                xmlhttp.open("GET", "http://{{ request.get_host }}/auto", true);
+                xmlhttp.open("GET", "{{ request.build_absolute_uri }}auto", true);
                 xmlhttp.send();
             }
         </script>
