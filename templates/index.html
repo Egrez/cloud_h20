@@ -127,7 +127,7 @@
             async function refreshTable(){
                 while (true){
                     await new Promise(resolve => setTimeout(resolve, 10000));
-                    xmlhttp.open("GET", "{{ request.build_absolute_uri }}", true);
+                    xmlhttp.open("GET", "document.URL", true);
                     xmlhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest")
                     xmlhttp.send();
                 }
