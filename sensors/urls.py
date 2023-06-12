@@ -6,7 +6,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('warn/<int:id>', views.send_warning_signal, name='warn'),
-    path('stop/warn/<int:id>', views.send_stop_warning_signal, name='stop-warn'),
+    path('warn', views.send_warning_signal, name='warn'),
+    path('stop/warn', views.send_stop_warning_signal, name='stop-warn'),
     path('signin', views.signin, name='signin'),
+    path('auto', views.auto, name='auto'),
 ]

@@ -6,6 +6,9 @@ class Sensor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=50, help_text="Enter Device's Location")
 
+    is_overriden = models.BooleanField(default=False)
+    is_warning = models.BooleanField(default=False)
+
     def __str__(self):
         return f'{self.user}'
 

@@ -26,27 +26,35 @@ def signin(request):
 
 # user controlled input to turn on LEDs
 @login_required
-def send_warning_signal(request, id): 
-	print("casd")
+def send_warning_signal(request): 
 	channel_layer = get_channel_layer()
 	async_to_sync(channel_layer.group_send)(
 		'QC',
 		{
 			'type': 'send_warning',
-			'message': 'Test message'
 		}
 	)
 	return HttpResponse('<p>Warning signal sent</p>')
 
 # user controlled input to turn on LEDs
 @login_required
-def send_stop_warning_signal(request, id): 
+def send_stop_warning_signal(request): 
 	channel_layer = get_channel_layer()
 	async_to_sync(channel_layer.group_send)(
 		'QC',
 		{
 			'type': 'send_stop_warning',
-			'message': 'Test message'
 		}
 	)
 	return HttpResponse('<p>Stop warning signal sent</p>')
+
+@login_required
+def auto(request): 
+	channel_layer = get_channel_layer()
+	async_to_sync(channel_layer.group_send)(
+		'QC',
+		{
+			'type': 'auto',
+		}
+	)
+	return HttpResponse('<p>Removed override signal sent</p>')

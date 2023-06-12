@@ -27,6 +27,7 @@
                     <td>
                         <button type="button" class="btn btn-danger" onclick="warn()">Mark as unsafe</button>
                         <button type="button" class="btn btn-success" onclick="unwarn()">Mark as safe</button>
+                        <button type="button" class="btn btn-secondary" onclick="auto()">Remove override</button>
                     </td>
                 </tr>
             {% endfor %}
@@ -135,12 +136,17 @@
             refreshTable()
 
             function warn(){
-                xmlhttp.open("GET", "http://{{ request.get_host }}/warn/1", true);
+                xmlhttp.open("GET", "http://{{ request.get_host }}/warn", true);
                 xmlhttp.send();
             }
 
             function unwarn(){
-                xmlhttp.open("GET", "http://{{ request.get_host }}/stop/warn/1", true);
+                xmlhttp.open("GET", "http://{{ request.get_host }}/stop/warn", true);
+                xmlhttp.send();
+            }
+
+            function auto(){
+                xmlhttp.open("GET", "http://{{ request.get_host }}/auto", true);
                 xmlhttp.send();
             }
         </script>
