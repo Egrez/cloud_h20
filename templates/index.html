@@ -127,15 +127,13 @@
             async function refreshTable(){
                 while (true){
                     await new Promise(resolve => setTimeout(resolve, 10000));
-                    xmlhttp.open("GET", "document.URL", true);
+                    xmlhttp.open("GET", document.URL, true);
                     xmlhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest")
                     xmlhttp.send();
                 }
             }
 
             refreshTable()
-
-            console.log(document.URL)
 
             function warn(){
                 xmlhttp.open("GET", document.URL + "warn", true);
