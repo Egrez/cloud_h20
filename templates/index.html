@@ -135,18 +135,20 @@
 
             refreshTable()
 
+            console.log(document.URL)
+
             function warn(){
-                xmlhttp.open("GET", "{{ request.build_absolute_uri }}warn", true);
+                xmlhttp.open("GET", document.URL + "warn", true);
                 xmlhttp.send();
             }
 
             function unwarn(){
-                xmlhttp.open("GET", "{{ request.build_absolute_uri }}stop/warn", true);
+                xmlhttp.open("GET", document.URL + "stop/warn", true);
                 xmlhttp.send();
             }
 
             function auto(){
-                xmlhttp.open("GET", "{{ request.build_absolute_uri }}auto", true);
+                xmlhttp.open("GET", document.URL + "auto", true);
                 xmlhttp.send();
             }
         </script>

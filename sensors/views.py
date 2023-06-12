@@ -12,6 +12,8 @@ from asgiref.sync import async_to_sync
 
 from django.http import HttpResponse
 
+from sensors.models import Sensor
+
 @csrf_exempt
 def signin(request):
 	username = request.POST["username"]
@@ -27,6 +29,13 @@ def signin(request):
 # user controlled input to turn on LEDs
 @login_required
 def send_warning_signal(request): 
+	sensors = Sensor.objects.all()
+
+	for sensor in sensors:
+		sensor.is_overriden = True
+		sensor.save()
+
+
 	channel_layer = get_channel_layer()
 	async_to_sync(channel_layer.group_send)(
 		'QC',
@@ -39,6 +48,12 @@ def send_warning_signal(request):
 # user controlled input to turn on LEDs
 @login_required
 def send_stop_warning_signal(request): 
+	sensors = Sensor.objects.all()
+
+	for sensor in sensors:
+		sensor.is_overriden = True
+		sensor.save()
+
 	channel_layer = get_channel_layer()
 	async_to_sync(channel_layer.group_send)(
 		'QC',
@@ -50,11 +65,10 @@ def send_stop_warning_signal(request):
 
 @login_required
 def auto(request): 
-	channel_layer = get_channel_layer()
-	async_to_sync(channel_layer.group_send)(
-		'QC',
-		{
-			'type': 'auto',
-		}
-	)
-	return HttpResponse('<p>Removed override signal sent</p>')
+	sensors = Sensor.objects.all()
+
+	for sensor in sensors:
+		sensor.is_overriden = False
+		sensor.save()
+
+	return HttpResponse('<p>Revetred to automatic warning</p>')

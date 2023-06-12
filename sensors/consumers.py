@@ -6,7 +6,8 @@ from django.contrib.sessions.models import Session
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-from sensors.models import SensorReading
+from sensors.models import SensorReading, Sensor
+
 
 class SensorConsumer(WebsocketConsumer):
 
@@ -32,11 +33,9 @@ class SensorConsumer(WebsocketConsumer):
 	# Receive message from the group
 	def send_warning(self, text_data=""):
 		user = self.scope['user']
-		sensor = user.sensor
+		sensor = Sensor.objects.get(user_id=user.id)
 		
 		sensor.is_warning = True
-		sensor.is_overriden = True
-
 		sensor.save()
 
 		message = json.dumps({"LED" : "true"})
@@ -47,36 +46,22 @@ class SensorConsumer(WebsocketConsumer):
 	# Receive message from the group
 	def send_stop_warning(self, text_data=""):
 		user = self.scope['user']
-
-		sensor = user.sensor
-
-		print(sensor)
+		sensor = Sensor.objects.get(user_id=user.id)
 
 		sensor.is_warning = False
-		sensor.is_overriden = True
-
 		sensor.save()
-
+		
 		message = json.dumps({"LED" : "false"})
 
 		# Send message to WebSocket
 		self.send(text_data=message)
-
-	# Receive message from the group
-	def auto(self, text_data=""):
-		user = self.scope['user']
-		sensor = user.sensor
-
-		sensor.is_overriden = False
-
-		sensor.save()
 
 	def disconnect(self, close_code):
 		pass
 
 	def receive(self, text_data):
 		user = self.scope['user']
-		sensor = user.sensor
+		sensor = Sensor.objects.get(user_id=user.id)
 
 		text_data_json = json.loads(text_data)
 		tds = text_data_json["tds"]
@@ -94,9 +79,9 @@ class SensorConsumer(WebsocketConsumer):
 		if tds > 600.6853818:
 			is_safe_tds = False
 
-		if not(is_safe_pH and is_safe_pH and is_safe_pH) and not(sensor.is_overriden) and not(sensor.is_warning):
+		if not(is_safe_pH and is_safe_temp and is_safe_tds) and not(sensor.is_overriden) and not(sensor.is_warning):
 			self.send_warning()
-		elif not(sensor.is_overriden) and sensor.is_warning:
+		elif is_safe_pH and is_safe_temp and is_safe_tds and not(sensor.is_overriden) and sensor.is_warning:
 			self.send_stop_warning()
 
 		new_obj = SensorReading(device_id=sensor, tds=tds, pH=pH, temp=temp, is_safe_tds=is_safe_tds, is_safe_pH=is_safe_pH, is_safe_temp=is_safe_temp)
