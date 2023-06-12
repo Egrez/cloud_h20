@@ -27,6 +27,7 @@ def signin(request):
 # user controlled input to turn on LEDs
 @login_required
 def send_warning_signal(request, id): 
+	print("casd")
 	channel_layer = get_channel_layer()
 	async_to_sync(channel_layer.group_send)(
 		'QC',

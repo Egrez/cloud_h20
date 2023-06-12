@@ -25,8 +25,8 @@
                 <tr>
                     <td>{{ location }}</td>
                     <td>
-                        <a href="{% url 'warn' id=1 %}"> <button type="button" class="btn btn-danger">Mark as unsafe</button> </a>
-                        <a href="{% url 'stop-warn' id=1 %}"> <button type="button" class="btn btn-success">Mark as safe</button> </a>
+                        <button type="button" class="btn btn-danger" onclick="warn()">Mark as unsafe</button>
+                        <button type="button" class="btn btn-success" onclick="unwarn()">Mark as safe</button>
                     </td>
                 </tr>
             {% endfor %}
@@ -126,13 +126,23 @@
             async function refreshTable(){
                 while (true){
                     await new Promise(resolve => setTimeout(resolve, 10000));
-                    xmlhttp.open("GET", "http://localhost:8000", true);
+                    xmlhttp.open("GET", "http://{{ request.get_host }}", true);
                     xmlhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest")
                     xmlhttp.send();
                 }
             }
 
             refreshTable()
+
+            function warn(){
+                xmlhttp.open("GET", "http://{{ request.get_host }}/warn/1", true);
+                xmlhttp.send();
+            }
+
+            function unwarn(){
+                xmlhttp.open("GET", "http://{{ request.get_host }}/stop/warn/1", true);
+                xmlhttp.send();
+            }
         </script>
     </body>
 </html>
