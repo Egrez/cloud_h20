@@ -23,12 +23,6 @@ def signin(request):
 
 	if user is not None:
 		login(request, user)
-	
-	sensor = user.sensor
-
-	sensor.is_warning = False
-
-	sensor.save()
 
 	return render(request, "index.html")
 

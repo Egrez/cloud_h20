@@ -25,8 +25,12 @@ class SensorConsumer(WebsocketConsumer):
 		user_id = session_data.get('_auth_user_id')
 		user = User.objects.get(id=user_id)
 
-		self.scope['user'] = user
+		sensor = user.sensor
 
+		if sensor.is_overriden and sensor.is_warning:
+			self.send_warning()
+
+		self.scope['user'] = user
 
 		self.accept()
 
@@ -83,8 +87,6 @@ class SensorConsumer(WebsocketConsumer):
 			self.send_warning()
 		elif is_safe_pH and is_safe_temp and is_safe_tds and not(sensor.is_overriden) and sensor.is_warning:
 			self.send_stop_warning()
-		elif not(is_safe_pH and is_safe_temp and is_safe_tds) and sensor.is_overriden and sensor.is_warning:
-			self.send_warning()
 
 		new_obj = SensorReading(device_id=sensor, tds=tds, pH=pH, temp=temp, is_safe_tds=is_safe_tds, is_safe_pH=is_safe_pH, is_safe_temp=is_safe_temp)
 		new_obj.save()
