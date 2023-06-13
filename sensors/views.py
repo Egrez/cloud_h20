@@ -71,4 +71,4 @@ def auto(request):
 		sensor.is_overriden = False
 		sensor.save()
 
-	return HttpResponse('<p>Revetred to automatic warning</p>')
+	return HttpResponse('<p>Reverted to automatic warning</p>')

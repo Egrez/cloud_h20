@@ -25,14 +25,14 @@ class SensorConsumer(WebsocketConsumer):
 		user_id = session_data.get('_auth_user_id')
 		user = User.objects.get(id=user_id)
 
+		self.scope['user'] = user
+
+		self.accept()
+
 		sensor = user.sensor
 
 		if sensor.is_overriden and sensor.is_warning:
 			self.send_warning()
-
-		self.scope['user'] = user
-
-		self.accept()
 
 	# Receive message from the group
 	def send_warning(self, text_data=""):
