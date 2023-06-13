@@ -24,11 +24,13 @@
             {% for location in locations %}
                 <tr>
                     <td>{{ location }}</td>
+                    {% if user.is_authenticated %}
                     <td>
                         <button type="button" class="btn btn-danger" onclick="warn()">Mark as unsafe</button>
                         <button type="button" class="btn btn-success" onclick="unwarn()">Mark as safe</button>
                         <button type="button" class="btn btn-secondary" onclick="auto()">Remove override</button>
                     </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>
