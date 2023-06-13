@@ -36,12 +36,6 @@ class SensorConsumer(WebsocketConsumer):
 
 	# Receive message from the group
 	def send_warning(self, text_data=""):
-		user = self.scope['user']
-		sensor = Sensor.objects.get(user_id=user.id)
-		
-		sensor.is_warning = True
-		sensor.save()
-
 		message = json.dumps({"LED" : "true"})
 
 		# Send message to WebSocket
@@ -49,12 +43,6 @@ class SensorConsumer(WebsocketConsumer):
 
 	# Receive message from the group
 	def send_stop_warning(self, text_data=""):
-		user = self.scope['user']
-		sensor = Sensor.objects.get(user_id=user.id)
-
-		sensor.is_warning = False
-		sensor.save()
-		
 		message = json.dumps({"LED" : "false"})
 
 		# Send message to WebSocket

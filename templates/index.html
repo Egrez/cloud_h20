@@ -141,16 +141,19 @@
             function warn(){
                 xhrSending.open("GET", document.URL + "warn", true);
                 xhrSending.send();
+                alert("Warning LEDs have been turned on.")
             }
 
             function unwarn(){
                 xhrSending.open("GET", document.URL + "stop/warn", true);
                 xhrSending.send();
+                alert("Warning LEDs have been turned off.")
             }
 
             function auto(){
                 xhrSending.open("GET", document.URL + "auto", true);
                 xhrSending.send();
+                alert("Warning LEDs have been set to automatic.")
             }
         </script>
     </body>

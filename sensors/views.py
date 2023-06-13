@@ -33,8 +33,8 @@ def send_warning_signal(request):
 
 	for sensor in sensors:
 		sensor.is_overriden = True
+		sensor.is_warning = True
 		sensor.save()
-
 
 	channel_layer = get_channel_layer()
 	async_to_sync(channel_layer.group_send)(
@@ -52,6 +52,7 @@ def send_stop_warning_signal(request):
 
 	for sensor in sensors:
 		sensor.is_overriden = True
+		sensor.is_warning = False
 		sensor.save()
 
 	channel_layer = get_channel_layer()
