@@ -51,7 +51,7 @@ def send_warning_signal(request):
 	)
 	return HttpResponse('<p>Warning signal sent</p>')
 
-# user controlled input to turn on LEDs
+# user controlled input to turn off LEDs
 @login_required
 def send_stop_warning_signal(request): 
 	sensors = Sensor.objects.all()
