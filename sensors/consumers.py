@@ -31,7 +31,7 @@ class SensorConsumer(WebsocketConsumer):
 
 		sensor = user.sensor
 
-		if sensor.is_overriden and sensor.is_warning:
+		if sensor.is_warning:
 			self.send_warning()
 
 	# Receive message from the group

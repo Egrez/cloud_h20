@@ -19,7 +19,7 @@ async def received_message_handler(websocket):
 
 async def sent_message_handler(websocket):
     while True:
-        message = json.dumps({"tds" : 1, "pH" : 2, "temp" : 3,})
+        message = json.dumps({"tds" : 1, "pH" : 2, "temp" : 100,})
         await asyncio.sleep(5)
         await websocket.send(message)
 
