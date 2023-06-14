@@ -66,7 +66,7 @@ class SensorConsumer(WebsocketConsumer):
 
 		if pH < 6.5 or pH > 8.5:
 			is_safe_pH = False
-		if temp < 30 or temp > 35:
+		if temp < 20 or temp > 35:
 			is_safe_temp = False
 		if tds > 600.6853818:
 			is_safe_tds = False
